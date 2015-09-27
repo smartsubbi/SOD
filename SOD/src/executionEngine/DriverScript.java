@@ -108,6 +108,7 @@ public class DriverScript
 				}
 			}
 		}
+		System.out.println("Total number of errors are : "+eR.size());
 		Assert.assertEquals(eR.size(), 0);
 	}
 
