@@ -119,7 +119,7 @@ public class DriverScript
 			if(method[i].getName().equalsIgnoreCase(actionKeyWord))
 			{
 				method[i].invoke(actionKeyWord, pageObject, data);
-				ActionMethods.pause();
+				ActionMethods.pause(pageObject, data);
 				System.out.println(getTestCaseFirstStep);
 				System.out.println(getTestCaseLastStep);
 				if(aResult==true)
