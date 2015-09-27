@@ -12,6 +12,8 @@ hLogoutLink=//div[@id='ctl00_logoutdiv']/a[@class='logo'][@title='Logout'][@href
 
 parentLoggedIn=//p[contains(.,'You are currently logged in as')][contains(.,'ParentLoginTest')]
 userLoggedIn=//p[contains(.,'You are currently logged in as')][contains(.,'UserLoginTest')]
+naParentLoggedIn=//p[contains(.,'You are currently logged in as')][contains(.,'aParentLoginTest')]
+naUserLoggedIn=//p[contains(.,'You are currently logged in as')][contains(.,'aUserLoginTest')]
 
 accountNotActivatedText=//label[@id='parentUnAuthorizedLabel']
 accountNotActivatedOkButton=//a[@class='ok-btn'][@onclick='RedirectUnAuthorizedUser()'][@href='#'][.='OK']
