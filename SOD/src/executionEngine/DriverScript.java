@@ -31,6 +31,8 @@ public class DriverScript
 	public static int getTestCaseFirstStep;
 	public static int getTestCaseLastStep;
 	public static String testStepNum;
+	public static String getTestCaseName;
+	public static String getRunMode; 
 	
 	
 	
@@ -62,10 +64,10 @@ public class DriverScript
 		for(int iTestCase=1;iTestCase<=totalTestCases;iTestCase++)
 		{
 			aResult=true;
-			String getTestCaseName = ExcelUtility.getCellData(Constants.testCaseSheetName, Constants.testCaseNameColNum, iTestCase);
+			getTestCaseName = ExcelUtility.getCellData(Constants.testCaseSheetName, Constants.testCaseNameColNum, iTestCase);
 			Reporter.log("Test Case Name is : "+getTestCaseName, true);
 			
-			String getRunMode = ExcelUtility.getCellData(Constants.testCaseSheetName, Constants.testCaseRunModeColNum, iTestCase);
+			getRunMode = ExcelUtility.getCellData(Constants.testCaseSheetName, Constants.testCaseRunModeColNum, iTestCase);
 			Reporter.log("Run Mode is : "+getRunMode,true);	
 			
 			if(getRunMode.equalsIgnoreCase("yes"))
@@ -107,9 +109,26 @@ public class DriverScript
 					ExcelUtility.setCellData(Constants.testCaseSheetName, Constants.testCaseResultColNum, iTestCase, Constants.PASS);					
 				}
 			}
+			else
+			{
+				setTestStepsSkip();
+				ExcelUtility.setCellData(Constants.testCaseSheetName, Constants.testCaseResultColNum, iTestCase, Constants.SKIP);
+				
+			}
 		}
 		System.out.println("Total number of errors are : "+eR.size());
 		Assert.assertEquals(eR.size(), 0);
+	}
+	
+	private static void setTestStepsSkip() throws Exception
+	{
+		getTestCaseFirstStep = ExcelUtility.getFirstRowContains(Constants.testStepsSheetName, getTestCaseName, Constants.testCaseNameColNum);
+		getTestCaseLastStep = ExcelUtility.getTotalTestSteps(getTestCaseFirstStep, getTestCaseName, Constants.testCaseNameColNum, Constants.testStepsSheetName);
+		for(;getTestCaseFirstStep<=getTestCaseLastStep;getTestCaseFirstStep++)
+		{
+			ExcelUtility.setCellData(Constants.testStepsSheetName, Constants.testStepResultColNum, getTestCaseFirstStep, Constants.SKIP);
+		}
+		
 	}
 
 	private static void executeActions() throws Exception, IllegalArgumentException, InvocationTargetException
@@ -142,7 +161,7 @@ public class DriverScript
 					ActionMethods.closeBrowser(pageObject,data);
 					break;
 				}
-			}
-		}	
+			}			
+		}		
 	}		
 }

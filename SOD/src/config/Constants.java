@@ -17,7 +17,7 @@ public class Constants
 	public static final int testStepResultColNum = 6;
 	public static final String PASS = "Pass";
 	public static final String FAIL = "Fail";
-	public static final String SKIP = "";
+	public static final String SKIP = "Skip";
 	public static final int testStepsColNum = 1;
 
 }

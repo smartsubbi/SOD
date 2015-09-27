@@ -96,7 +96,7 @@ public class ExcelUtility
 		FileOutputStream fos = new FileOutputStream(excelFilePath);		
 		excelWorkBook.write(fos);
 		fos.close();		
-		excelWorkBook = new XSSFWorkbook(new FileInputStream(excelFilePath));		
+		//excelWorkBook = new XSSFWorkbook(new FileInputStream(excelFilePath));		
 	}
 	
 //	public static void main(String[] args) throws Exception

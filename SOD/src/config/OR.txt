@@ -10,11 +10,12 @@ playNowButton=//input[@id='ctl00_mcp_btnLogin']
 logoutLink=//a[@id='ctl00_mcp_logout']
 hLogoutLink=//div[@id='ctl00_logoutdiv']/a[@class='logo'][@title='Logout'][@href='/Logout.aspx']
 
-parentLoggedIn=//p[contains(.,'You are currently logged in as')][contains(.,'fuck')]
+parentLoggedIn=//p[contains(.,'You are currently logged in as')][contains(.,'ParentLoginTest')]
 userLoggedIn=//p[contains(.,'You are currently logged in as')][contains(.,'UserLoginTest')]
 
-#Authorisation
 accountNotActivatedText=//label[@id='parentUnAuthorizedLabel']
 accountNotActivatedOkButton=//a[@class='ok-btn'][@onclick='RedirectUnAuthorizedUser()'][@href='#'][.='OK']
 accountNotActivatedEmailInputField=//input[@id='tbEmail'][@type='text']
-accountNotActivatedResendConfirmationMailButton=//span[@class='resend-authorization'][@onclick='return ResendEmail()'] 
+accountNotActivatedResendConfirmationMailButton=//span[@class='resend-authorization'][@onclick='return ResendEmail()']
+
+userAccountNotActivatedText=//label[@id='accountUnAuthorizedLabel']
