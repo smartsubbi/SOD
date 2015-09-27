@@ -158,6 +158,7 @@ public class ActionMethods
 		try
 		{
 			driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+			Reporter.log("Value is : "+OR.getProperty(object),true);
 			driver.findElement(By.xpath(OR.getProperty(object)));	
 		}
 		catch(Exception e)
@@ -168,10 +169,12 @@ public class ActionMethods
 		}			
 	}
 	
-	public static void pause()
+	public static void pause(String object, String data)
 	{
 		try {
+			Reporter.log("Pausing for 5 seconds...");
 			Thread.sleep(2000);
+			Reporter.log("Pausing for 5 seconds done...");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			Reporter.log("Sleep Error"+e.getMessage(),true);			

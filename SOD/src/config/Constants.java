@@ -4,7 +4,7 @@ public class Constants
 {
 
 	public static final String excelPath = "D://Selenium Excels//TestData.xlsx";
-	public static final String orPath = "D://workspace//SchoolOfDragons//src//config//OR.txt";
+	public static final String orPath = "D://Git//SOD//src//config//OR.txt";
 	public static final String testCaseSheetName = "TestCases";
 	public static final String testStepsSheetName = "TestSteps";
 	
