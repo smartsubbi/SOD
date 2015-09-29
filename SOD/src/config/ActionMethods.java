@@ -6,6 +6,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -17,13 +18,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Reporter;
 
+import excelutility.ExcelUtility;
 import executionEngine.DriverScript;
 
 public class ActionMethods 
 {
 	public static WebDriver driver;
+	public static String userNameToStore;
 	
 	public static void openBrowser(String object, String data)
 	{
@@ -138,6 +142,14 @@ public class ActionMethods
 		}		
 	}
 	
+	public static String getDateTime()
+	{
+		DateFormat dateFormat = new SimpleDateFormat("dd/MMMMM/yyyy - HH/mm/ss aaa");			
+		Date date = new Date();					 
+	    String date1= dateFormat.format(date);	
+	    return date1;
+	}
+	
 	public static void fScreenShot()
 	{		
 		String data=DriverScript.testStepNum;
@@ -169,6 +181,24 @@ public class ActionMethods
 		}			
 	}
 	
+	public static void verifyRObject(String object, String data)
+	{
+		
+		try
+		{
+			object = "//p[contains(.,'You are currently logged in as')][contains(.,'"+userNameToStore+"')]";
+			driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+			Reporter.log("Value is : "+object,true);
+			driver.findElement(By.xpath(object));	
+		}
+		catch(Exception e)
+		{
+			Reporter.log("Element not found"+e.getMessage(),true);
+			fScreenShot();
+			DriverScript.aResult=false;
+		}			
+	}
+	
 	public static void pause(String object, String data)
 	{
 		try {
@@ -179,5 +209,53 @@ public class ActionMethods
 			// TODO Auto-generated catch block
 			Reporter.log("Sleep Error"+e.getMessage(),true);			
 		}
+	}
+	
+	public static void selectFromDropDown(String object, String data)
+	{
+		try
+		{
+			driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+			Reporter.log("Value is : "+OR.getProperty(object),true);
+			Select dropDown = new Select(driver.findElement(By.xpath(OR.getProperty(object))));
+			dropDown.selectByValue(data);
+			
+		}
+		catch(Exception e)
+		{
+			Reporter.log("Element not found"+e.getMessage(),true);
+			fScreenShot();
+			DriverScript.aResult=false;
+		}			
+	}
+	
+	public static void inputRandomUserName(String object,String userName)
+	{
+		try
+		{			
+			userName = getRandomNumber()+userName+getRandomNumber();
+			System.out.println("Generated username is : "+userName);
+			System.out.println("object is : "+object);
+			driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+			driver.findElement(By.xpath(OR.getProperty(object))).sendKeys(userName);
+			System.out.println("Random username generated is : "+userName);
+			userNameToStore=userName;			
+		}
+		catch(Exception e)
+		{
+			Reporter.log("Not able to enter data : "+e.getMessage(),true);
+			fScreenShot();
+			DriverScript.aResult=false;
+		}				
+	}
+	
+	public static int getRandomNumber()
+	{
+		Random r = new Random();
+		int myRandomNumber = 0;
+		int maxValue = 9999 ;
+		int minValue = 1;
+		myRandomNumber = r.nextInt(maxValue-minValue+1)+minValue;
+		return myRandomNumber;
 	}
 }

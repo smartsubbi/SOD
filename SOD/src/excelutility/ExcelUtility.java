@@ -15,6 +15,9 @@ public class ExcelUtility
 	public static XSSFSheet excelSheet;
 	public static XSSFRow row;
 	public static XSSFCell cell;
+	public static XSSFRow newRow;
+	public static XSSFCell newCell;
+	
 	
 	public static String excelFilePath = "D://Selenium Excels//TestData.xlsx";
 	public static String sheetName = "Sheet1";
@@ -99,15 +102,26 @@ public class ExcelUtility
 		//excelWorkBook = new XSSFWorkbook(new FileInputStream(excelFilePath));		
 	}
 	
-//	public static void main(String[] args) throws Exception
-//	{
-//		setExcel(excelFilePath);
-//		int totalUsedRow = getTotalUsedRow(sheetName);
-//		System.out.println("Total Used Row is : "+totalUsedRow);
-//		int firstRowContains = getFirstRowContains(sheetName,"Login1",0);
-//		System.out.println("First test Step is : "+firstRowContains);
-//		int lastTestStep = getTotalTestSteps(firstRowContains,"Login",0,sheetName);
-//		System.out.println("Last test Step is : "+lastTestStep);
-//		setCellData(sheetName,1,1, "PASS");
-//	}		
+	public static void setCellDataNew(String sheetName, int colNum, String result) throws Exception
+	{
+		excelSheet = excelWorkBook.getSheet(sheetName);
+		int rowCount = excelSheet.getLastRowNum()-excelSheet.getFirstRowNum();
+		System.out.println(rowCount);
+		row = excelSheet.getRow(rowCount+1);
+		try
+		{
+			cell = row.getCell(colNum);	
+		}
+		catch(NullPointerException npe)
+		{
+			newRow = excelSheet.createRow(rowCount+1);
+			newCell= newRow.createCell(colNum);
+			newCell.setCellValue(result);
+			FileOutputStream fos = new FileOutputStream(excelFilePath);		
+            excelWorkBook.write(fos);
+			fos.flush();
+			fos.close();		
+			excelWorkBook = new XSSFWorkbook(new FileInputStream(excelFilePath));	
+		}				
+	}	
 }

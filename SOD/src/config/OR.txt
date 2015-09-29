@@ -1,5 +1,6 @@
 #Common Objects for all pages
-headerLoginLink=//div[@id='ctl00_logindiv']/a[@class='logo'][@title='Log in'][@href='/Login.aspx']
+headerLoginLink=//div[@id='ctl00_logindiv']/a[@class='logo'][@title='Log in'][@href='/Login.aspx'][.='Log in']
+headerCreateAnAccountLink=//div[@id='ctl00_logindiv']/a[@class='logo'][@title='Create An Account'][@href='/Signup.aspx'][.='Create An Account']
 
 #Login Page Objects
 userNameInputField=//input[@id='ctl00_mcp_tbUserName']
@@ -21,3 +22,18 @@ accountNotActivatedEmailInputField=//input[@id='tbEmail'][@type='text']
 accountNotActivatedResendConfirmationMailButton=//span[@class='resend-authorization'][@onclick='return ResendEmail()']
 
 userAccountNotActivatedText=//label[@id='accountUnAuthorizedLabel']
+
+#Create Account Page Objects
+selectAge=//select[@id='ctl00_mcp_ucRegModule_ddlAge']
+confirmButtonNotActive=//a[@id='ctl00_mcp_ucRegModule_btnAgeSelector'][@class='SOD-Confirm-BtnInactive'][@usesubmitbehavior='false'][@disabled='disabled'][.='Confirm']
+confirmButtonActive=//a[@id='ctl00_mcp_ucRegModule_btnAgeSelector'][@class='SOD-Confirm-Btn'][@usesubmitbehavior='false'][.='Confirm']
+selectedAge=//select[@id='ctl00_mcp_ucRegModule_ddlAge']/option[@value='10'][@selected='selected'][.='10']
+createAccountPageParentEmailInputField=//input[@id='ctl00_mcp_ucRegModule_tbEmail']
+createAccountPagePlayerLoginInputField=//input[@id='ctl00_mcp_ucRegModule_tbUName']
+createAccountPagePasswordInputField=//input[@id='ctl00_mcp_ucRegModule_tbPassword']
+createAccountPageFinishAndPlayButton=//a[@id='ctl00_mcp_ucRegModule_btnSubmit']
+
+#Almost Done pop up
+almostDonePopUpText=//div[@class='SOD-DIV-POPUP']/[.='Almost Done!']
+almostDonePopUpParentText=//span[@id='ctl00_mcp_RegistrationConfirmation_parentLabel'][.='An email has been sent to your parent. Play now while your parent completes the registration.']
+almostDonePopUpPlayNowButton=//a[@id='btnLogin']/div[@class='SOD-Login-Btn'][@onclick='RedirectToGamePage()']

@@ -116,6 +116,7 @@ public class DriverScript
 				
 			}
 		}
+		ExcelUtility.setCellData(Constants.testCaseSheetName, Constants.updatedOnColNum, 1, ActionMethods.getDateTime());
 		System.out.println("Total number of errors are : "+eR.size());
 		Assert.assertEquals(eR.size(), 0);
 	}
@@ -138,13 +139,21 @@ public class DriverScript
 			if(method[i].getName().equalsIgnoreCase(actionKeyWord))
 			{
 				method[i].invoke(actionKeyWord, pageObject, data);
+				if(pageObject.equalsIgnoreCase("createAccountPagePlayerLoginInputField"))
+				{
+					System.out.println("Username to be added to Excel is "+ActionMethods.userNameToStore);
+				}
 				ActionMethods.pause(pageObject, data);
 				System.out.println(getTestCaseFirstStep);
 				System.out.println(getTestCaseLastStep);
 				if(aResult==true)
 				{
+					if(pageObject.equalsIgnoreCase("createAccountPageFinishAndPlayButton"))
+					{
+						ExcelUtility.setCellDataNew(Constants.userNamesSheetName, Constants.notAuthorisedParentUsernamesColNum, ActionMethods.userNameToStore);
+					}
+					ExcelUtility.setCellData(Constants.testStepsSheetName, Constants.testStepResultColNum, getTestCaseFirstStep, Constants.PASS);
 					
-					ExcelUtility.setCellData(Constants.testStepsSheetName, Constants.testStepResultColNum, getTestCaseFirstStep, Constants.PASS);					
 					break;
 				}
 				else
@@ -160,8 +169,8 @@ public class DriverScript
 					}
 					ActionMethods.closeBrowser(pageObject,data);
 					break;
-				}
-			}			
-		}		
-	}		
+				}				
+			}	
+		}				
+	}	
 }
