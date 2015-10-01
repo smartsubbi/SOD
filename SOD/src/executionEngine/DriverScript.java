@@ -80,6 +80,8 @@ public class DriverScript
 				Reporter.log("Test case last Step is : "+getTestCaseLastStep, true);
 				System.out.println();
 				
+				getTestCaseLastStep=getTestCaseLastStep-1;
+				
 				for(;getTestCaseFirstStep<=getTestCaseLastStep;getTestCaseFirstStep++)
 				{
 					
@@ -138,11 +140,7 @@ public class DriverScript
 		{
 			if(method[i].getName().equalsIgnoreCase(actionKeyWord))
 			{
-				method[i].invoke(actionKeyWord, pageObject, data);
-				if(pageObject.equalsIgnoreCase("createAccountPagePlayerLoginInputField"))
-				{
-					System.out.println("Username to be added to Excel is "+ActionMethods.userNameToStore);
-				}
+				method[i].invoke(actionKeyWord, pageObject, data);				
 				ActionMethods.pause(pageObject, data);
 				System.out.println(getTestCaseFirstStep);
 				System.out.println(getTestCaseLastStep);
@@ -152,8 +150,7 @@ public class DriverScript
 					{
 						ExcelUtility.setCellDataNew(Constants.userNamesSheetName, Constants.notAuthorisedParentUsernamesColNum, ActionMethods.userNameToStore);
 					}
-					ExcelUtility.setCellData(Constants.testStepsSheetName, Constants.testStepResultColNum, getTestCaseFirstStep, Constants.PASS);
-					
+					ExcelUtility.setCellData(Constants.testStepsSheetName, Constants.testStepResultColNum, getTestCaseFirstStep, Constants.PASS);					
 					break;
 				}
 				else
@@ -162,13 +159,13 @@ public class DriverScript
 					if(getTestCaseFirstStep!=getTestCaseLastStep)
 					{
 						getTestCaseFirstStep=getTestCaseFirstStep+1;
-						for(;getTestCaseFirstStep<=getTestCaseLastStep;getTestCaseFirstStep++)
+						for(;getTestCaseFirstStep<=getTestCaseLastStep;)
 						{
-							ExcelUtility.setCellData(Constants.testStepsSheetName, Constants.testStepResultColNum, getTestCaseFirstStep, Constants.FAIL);	
+							ExcelUtility.setCellData(Constants.testStepsSheetName, Constants.testStepResultColNum, getTestCaseFirstStep, Constants.FAIL);
+							break;
 						}						
-					}
-					ActionMethods.closeBrowser(pageObject,data);
-					break;
+					}					
+				
 				}				
 			}	
 		}				
